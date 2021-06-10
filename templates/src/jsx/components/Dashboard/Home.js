@@ -11,6 +11,7 @@ import Widget3 from "../kripton/Home/WidgetChart3";
 import Widget4 from "../kripton/Home/WidgetChart4";
 import ReactApexChart from "react-apexcharts";
 import axios from "axios";
+import { mockData } from "../../../mockup";
 
 const MarketOverview = loadable(() =>
   pMinDelay(import("../kripton/Home/MarketOverview"), 1000)
@@ -32,27 +33,27 @@ const Home = () => {
   }, []);
   // console.log(background.value === "dark");
 
-  const [data, setData] = useState([]);
+  // const [data, setData] = useState([]);
 
-  axios
-    .get("http://3.143.143.217:3306/api/predict", {
-      // headers: {
-      //   'Access-Control-Allow-Origin': '*'
-      // }
-    })
-    .then(res => setData(res.data));
+  // axios
+  //   .get("http://localhost:8000/api/predict", {
+  //     // headers: {
+  //     //   'Access-Control-Allow-Origin': '*'
+  //     // }
+  //   })
+  //   .then(res => setData(res.data));
 
-  console.log(data)
+  console.log(mockData)
 
   const state = {
     series: [
       {
         name: "Estimation",
-        data: [500, 230, 600, 360, 700, 890, 750, 420, 600, 300, 420, 220],
+        data: mockData.prediction,
       },
       {
         name: "Real Currency",
-        data: [250, 380, 200, 300, 200, 520, 380, 770, 250, 520, 300, 900],
+        data: mockData.dataset,
       },
     ],
     options: {
@@ -64,7 +65,8 @@ const Home = () => {
           show: false,
         },
         zoom: {
-          enabled: false,
+          enabled: true,
+          type: 'xy', 
         },
       },
       dataLabels: {
@@ -101,23 +103,6 @@ const Home = () => {
       //   },
       // },
       xaxis: {
-        categories: [
-          "January",
-          "February",
-          "March",
-          "April",
-          "May",
-          "June",
-          "July",
-          "August",
-          "September",
-          "October",
-          "November",
-          "December",
-          "10 Jan",
-          "11 Jan",
-          "12 Jan",
-        ],
       },
       yaxis: {
         labels: {

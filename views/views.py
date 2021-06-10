@@ -11,9 +11,12 @@ from .predict import *
 def predict(request):
   dataset, train, prediction = getPrediction()
 
-  return JsonResponse({
+  response = JsonResponse({
     "dataset": json.dumps(dataset.tolist()), 
     "train": json.dumps(train.tolist()), 
     "prediction": json.dumps(prediction.tolist())
   })
+  response['Access-Control-Allow-Origin'] = '*'
+
+  return response
 
